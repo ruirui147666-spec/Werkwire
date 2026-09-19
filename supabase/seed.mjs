@@ -46,6 +46,9 @@ const FREGUESIAS = ["Amadora, Lisboa", "Alvalade, Lisboa", "Benfica, Lisboa", "O
 
 const emptyWeek = () => ({ mon: [], tue: [], wed: [], thu: [], fri: [], sat: [], sun: [] });
 const point = (lng, lat) => `POINT(${lng} ${lat})`;
+// Emails must be ASCII — strip accents (Inês -> ines, João -> joao) for the
+// address only; display names elsewhere keep the accents.
+const toEmailSlug = (name) => name.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 async function createAuthUser(email, role, fullName) {
   const { data, error } = await admin.auth.admin.createUser({
@@ -290,7 +293,7 @@ async function main() {
 
   console.log("A criar 40 candidatos… (isto demora um bocado — uma chamada à Admin API por conta)");
   for (let i = 1; i <= 40; i++) {
-    const email = `${FIRST_NAMES[i - 1].toLowerCase()}${i}@exemplo.pt`;
+    const email = `${toEmailSlug(FIRST_NAMES[i - 1])}${i}@exemplo.pt`;
     const workerUser = await createAuthUser(email, "worker", `${FIRST_NAMES[i - 1]} Candidato`);
     await admin.from("profiles").update({ phone_verified: true, email_verified: true }).eq("id", workerUser);
 
