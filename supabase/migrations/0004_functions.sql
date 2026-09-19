@@ -33,7 +33,7 @@ returns setof worker_profiles as $$
     and ST_DWithin(wp.location_point, j.location_point, radius_km * 1000)
   order by wp.location_point <-> j.location_point
   limit 500;
-$$ language sql stable security definer set search_path = public;
+$$ language sql stable security definer set search_path = public, extensions;
 
 -- Top-N workers by embedding cosine similarity for a job (pgvector).
 create or replace function similar_workers_for_job(
@@ -47,4 +47,4 @@ returns table (worker_id uuid, similarity numeric) as $$
   where wp.embedding is not null and j.embedding is not null
   order by wp.embedding <=> j.embedding
   limit match_count;
-$$ language sql stable security definer set search_path = public;
+$$ language sql stable security definer set search_path = public, extensions;
