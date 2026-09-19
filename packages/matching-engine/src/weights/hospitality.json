@@ -1,0 +1,21 @@
+{
+  "version": "hospitality-v1",
+  "segment": "hospitality",
+  "employer": {
+    "skills": 0.30,
+    "experience": 0.15,
+    "languages": 0.10,
+    "schedule": 0.15,
+    "commute": 0.15,
+    "semantic": 0.15
+  },
+  "worker": {
+    "salary": 0.30,
+    "commute": 0.20,
+    "schedule": 0.20,
+    "contract": 0.15,
+    "work_mode": 0.10,
+    "employer_reputation": 0.05
+  },
+  "threshold": 0.62
+}

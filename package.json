@@ -1,0 +1,20 @@
+{
+  "name": "werkwire",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @werkwire/web dev",
+    "build": "pnpm -r --filter=!@werkwire/web build && pnpm --filter @werkwire/web build",
+    "test": "pnpm -r test",
+    "test:engine": "pnpm --filter @werkwire/matching-engine test",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.13"
+  }
+}

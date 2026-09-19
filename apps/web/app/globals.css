@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light only;
+}
+
+html {
+  color-scheme: light only;
+}
+
+body {
+  background-color: theme("colors.surface.subtle");
+  color: theme("colors.ink.900");
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Comfortable, thumb-friendly tap targets everywhere (mobile-first). */
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .container-app {
+    @apply mx-auto w-full max-w-app px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ink-100 bg-surface shadow-card;
+  }
+
+  .focus-ring {
+    @apply outline-none ring-offset-2 ring-offset-surface focus-visible:ring-2 focus-visible:ring-brand-500;
+  }
+}
