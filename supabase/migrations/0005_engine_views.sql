@@ -1,3 +1,9 @@
+-- Repeated from 0001: this file may run in its own session, and ST_Y/ST_X
+-- below need "extensions" (where postgis lives) resolvable at CREATE VIEW
+-- time — a view's defining query is bound to specific function OIDs when
+-- created, so this only has to be right once, right now.
+set search_path = public, extensions;
+
 -- Flattened, lat/lng-friendly projections of worker_profiles/jobs for the
 -- matching cycle route (called with the service role — PostgREST can't
 -- easily hand geography columns to supabase-js otherwise, and the cycle

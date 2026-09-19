@@ -1,7 +1,26 @@
 -- Werkwire — extensões e tipos enumerados
-create extension if not exists "uuid-ossp";
-create extension if not exists vector;
-create extension if not exists postgis;
+--
+-- Instaladas no schema "extensions" (a convenção do próprio Supabase — os
+-- projetos hospedados já têm este schema no search_path de todas as
+-- roles por omissão, por isso isto funciona sem qualificar cada
+-- referência). `if not exists` torna isto seguro de repetir mesmo que o
+-- projeto já as tenha pré-instaladas.
+create schema if not exists extensions;
+create extension if not exists vector with schema extensions;
+create extension if not exists postgis with schema extensions;
+
+-- Garante, para esta sessão, que os tipos/operadores destas extensões
+-- (vector, geography, ...) resolvem sem qualificar cada referência —
+-- não confiar no search_path por omissão da role, que varia consoante
+-- o ambiente (Supabase hospedado vs. Postgres local).
+set search_path = public, extensions;
+
+-- Nota: os IDs usam gen_random_uuid() (núcleo do Postgres desde a v13,
+-- sem extensão nenhuma) em vez de uuid_generate_v4() (uuid-ossp) —
+-- evita precisamente o erro "function uuid_generate_v4() does not
+-- exist" que a extensão uuid-ossp costuma dar em projetos Supabase
+-- quando o schema onde fica instalada não está no search_path da role
+-- que corre a migração.
 
 create type user_role        as enum ('worker','employer','admin');
 create type availability     as enum ('active','passive','unavailable');

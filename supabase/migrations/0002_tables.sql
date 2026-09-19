@@ -1,3 +1,9 @@
+-- Repetido de 0001: cada ficheiro de migração pode correr na sua própria
+-- sessão, por isso este SET não pode depender de ter "sobrevivido" de um
+-- ficheiro anterior. Precisa de estar aqui porque usamos os tipos
+-- "geography" e "vector" mais abaixo.
+set search_path = public, extensions;
+
 -- ─────────────────────────────────────────────────────────────
 -- UTILIZADORES
 -- ─────────────────────────────────────────────────────────────
@@ -41,7 +47,7 @@ create trigger on_auth_user_created
 -- TRABALHADOR
 -- ─────────────────────────────────────────────────────────────
 create table worker_profiles (
-  id                    uuid primary key default uuid_generate_v4(),
+  id                    uuid primary key default gen_random_uuid(),
   user_id               uuid not null unique references profiles(id) on delete cascade,
 
   display_alias         text not null,
@@ -103,7 +109,7 @@ create index on worker_profiles (availability, salary_min);
 -- EMPRESA
 -- ─────────────────────────────────────────────────────────────
 create table companies (
-  id                    uuid primary key default uuid_generate_v4(),
+  id                    uuid primary key default gen_random_uuid(),
   owner_user_id         uuid not null references profiles(id),
   legal_name            text not null,
   trade_name            text not null,
@@ -133,7 +139,7 @@ create table companies (
 -- VAGA
 -- ─────────────────────────────────────────────────────────────
 create table jobs (
-  id                    uuid primary key default uuid_generate_v4(),
+  id                    uuid primary key default gen_random_uuid(),
   company_id            uuid not null references companies(id) on delete cascade,
   created_by            uuid not null references profiles(id),
 
@@ -186,7 +192,7 @@ create index on jobs (company_id);
 -- CICLOS DE MATCHING
 -- ─────────────────────────────────────────────────────────────
 create table match_cycles (
-  id                uuid primary key default uuid_generate_v4(),
+  id                uuid primary key default gen_random_uuid(),
   kind              text not null,
   started_at        timestamptz not null default now(),
   finished_at       timestamptz,
@@ -203,7 +209,7 @@ create table match_cycles (
 -- MATCH — o objeto central
 -- ─────────────────────────────────────────────────────────────
 create table matches (
-  id                    uuid primary key default uuid_generate_v4(),
+  id                    uuid primary key default gen_random_uuid(),
   worker_id             uuid not null references worker_profiles(id) on delete cascade,
   job_id                uuid not null references jobs(id) on delete cascade,
   cycle_id              uuid not null references match_cycles(id),
@@ -249,14 +255,14 @@ create index on matches (job_id, created_at desc);
 -- PÓS-MATCH
 -- ─────────────────────────────────────────────────────────────
 create table conversations (
-  id           uuid primary key default uuid_generate_v4(),
+  id           uuid primary key default gen_random_uuid(),
   match_id     uuid not null unique references matches(id) on delete cascade,
   created_at   timestamptz not null default now(),
   last_msg_at  timestamptz
 );
 
 create table messages (
-  id               uuid primary key default uuid_generate_v4(),
+  id               uuid primary key default gen_random_uuid(),
   conversation_id  uuid not null references conversations(id) on delete cascade,
   sender_id        uuid not null references profiles(id),
   body             text not null,
@@ -267,7 +273,7 @@ create table messages (
 create index on messages (conversation_id, created_at);
 
 create table pipeline_events (
-  id          uuid primary key default uuid_generate_v4(),
+  id          uuid primary key default gen_random_uuid(),
   match_id    uuid not null references matches(id) on delete cascade,
   stage       text not null,
   actor_id    uuid references profiles(id),
@@ -278,7 +284,7 @@ create table pipeline_events (
 create index on pipeline_events (match_id, occurred_at);
 
 create table hires (
-  id                   uuid primary key default uuid_generate_v4(),
+  id                   uuid primary key default gen_random_uuid(),
   match_id             uuid not null unique references matches(id),
   confirmed_by_worker  boolean not null default false,
   confirmed_by_employer boolean not null default false,
@@ -302,7 +308,7 @@ create table billing_accounts (
 );
 
 create table match_charges (
-  id                uuid primary key default uuid_generate_v4(),
+  id                uuid primary key default gen_random_uuid(),
   match_id          uuid not null unique references matches(id),
   company_id        uuid not null references companies(id),
   amount_cents      int not null,
@@ -327,7 +333,7 @@ create table audit_log (
 );
 
 create table fairness_audits (
-  id             uuid primary key default uuid_generate_v4(),
+  id             uuid primary key default gen_random_uuid(),
   period_start   date not null,
   period_end     date not null,
   dimension      text not null,

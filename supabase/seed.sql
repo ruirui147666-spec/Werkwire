@@ -7,11 +7,17 @@
 -- Password de todas as contas semente: "werkwire-dev-2026"
 -- ─────────────────────────────────────────────────────────────
 
-create extension if not exists pgcrypto;
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
+
+-- ST_GeogFromText (postgis) is used unqualified below — needs
+-- "extensions" resolvable for this session, same reasoning as the
+-- migrations (see 0001_extensions_enums.sql).
+set search_path = public, extensions;
 
 do $$
 declare
-  seed_password text := crypt('werkwire-dev-2026', gen_salt('bf'));
+  seed_password text := extensions.crypt('werkwire-dev-2026', extensions.gen_salt('bf'));
 
   -- company owners
   owner_resto uuid := gen_random_uuid();
