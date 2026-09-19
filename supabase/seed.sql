@@ -5,6 +5,16 @@
 -- podem dar match (o teste do duplo limiar), mais uma empresa "ghost".
 --
 -- Password de todas as contas semente: "werkwire-dev-2026"
+--
+-- ⚠️  Este ficheiro insere diretamente em auth.users por SQL. Isso é
+-- suficiente para testar RLS/o motor de matching contra um Postgres puro
+-- (ver supabase/tests/rls_smoke_test.sql), mas NÃO produz contas capazes
+-- de fazer login através do Supabase Auth real — o GoTrue hospedado
+-- espera também uma entrada ligada em auth.identities, que só é criada
+-- pela Admin API, não por um INSERT direto.
+--
+-- Para um seed que já faz login na app (contra um projeto Supabase real),
+-- usa antes:  pnpm seed   (corre supabase/seed.mjs)
 -- ─────────────────────────────────────────────────────────────
 
 create schema if not exists extensions;

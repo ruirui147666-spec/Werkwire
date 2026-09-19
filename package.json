@@ -12,9 +12,12 @@
     "test": "pnpm -r test",
     "test:engine": "pnpm --filter @werkwire/matching-engine test",
     "lint": "pnpm -r lint",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "seed": "node supabase/seed.mjs"
   },
   "devDependencies": {
-    "tsx": "^4.23.13"
+    "tsx": "^4.23.13",
+    "@supabase/supabase-js": "^2.45.4",
+    "dotenv": "^16.4.5"
   }
 }

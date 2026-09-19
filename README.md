@@ -64,7 +64,8 @@ werkwire/
 │  ├─ shared/                # tipos + schemas zod partilhados
 ├─ supabase/
 │  ├─ migrations/            # esquema + RLS + funções
-│  ├─ seed.sql                # dados de desenvolvimento
+│  ├─ seed.mjs                # dados de demonstração (`pnpm seed`) — usar este
+│  ├─ seed.sql                # equivalente em SQL puro, só para testar contra Postgres local
 │  └─ tests/rls_smoke_test.sql
 ```
 
@@ -76,19 +77,20 @@ Em [supabase.com](https://supabase.com), criar um novo projeto. Anotar o
 URL do projeto e as chaves (`anon` e `service_role`) em
 Project Settings → API.
 
-### 2. Aplicar o esquema e o seed
+### 2. Aplicar o esquema
 
 Com o [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
 instalado e associado ao projeto (`supabase link`):
 
 ```bash
 supabase db push          # aplica supabase/migrations/*.sql
-psql "$(supabase db url  --linked)" -f supabase/seed.sql   # opcional, dados de demonstração
 ```
 
 Ou, sem CLI: colar o conteúdo de cada ficheiro em `supabase/migrations/`
-(por ordem numérica) e depois `supabase/seed.sql` no SQL Editor do painel
-Supabase.
+(por ordem numérica, 0001 a 0006) no SQL Editor do painel Supabase.
+
+Os dados de demonstração aplicam-se à parte, no passo 5 — precisam de
+`pnpm install` e das variáveis de ambiente configuradas primeiro.
 
 > **Nota de ambiente:** este projeto foi construído numa sandbox sem
 > acesso ao registo de imagens Docker necessário para correr
@@ -117,16 +119,25 @@ Opcionais (a app funciona sem eles, com fallbacks):
 - `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
   `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — ativa pagamentos reais
 
-### 4. Instalar e correr
+### 4. Instalar
 
 ```bash
 pnpm install
-pnpm dev              # apps/web em http://localhost:3000
 ```
 
-### 5. Contas de demonstração (após aplicar `supabase/seed.sql`)
+### 5. Popular com dados de demonstração
 
-Palavra-passe para todas: `werkwire-dev-2026`
+```bash
+pnpm seed
+```
+
+Corre `supabase/seed.mjs`, que cria as contas através da Admin API do
+Supabase (não por SQL direto — é o que garante que conseguem mesmo fazer
+login; ver o aviso em `supabase/seed.sql` se precisares de saber porquê).
+Lê as credenciais de `apps/web/.env.local` automaticamente. Demora um
+bocado (cria 43 contas, uma chamada de cada vez).
+
+Palavra-passe para todas as contas: `werkwire-dev-2026`
 
 | Perfil | Email |
 |---|---|
@@ -135,7 +146,13 @@ Palavra-passe para todas: `werkwire-dev-2026`
 | Empregador — LogiFast (logística, ghost job) | `operacoes@logifast.pt` |
 | Trabalhador exemplo | `ana1@exemplo.pt` … `ulisses40@exemplo.pt` |
 
-### 6. Correr um ciclo de matching manualmente
+### 6. Arrancar a app
+
+```bash
+pnpm dev              # apps/web em http://localhost:3000
+```
+
+### 7. Correr um ciclo de matching manualmente
 
 ```bash
 curl -X POST http://localhost:3000/api/internal/cycle/run \
