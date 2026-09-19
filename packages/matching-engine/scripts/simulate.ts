@@ -14,7 +14,7 @@
  */
 import { readFileSync } from "node:fs";
 import { haversineKm, type Job, type WorkerProfile } from "@werkwire/shared";
-import { runMatching } from "../src/index.js";
+import { runMatching } from "../src/index";
 
 const fixturePath = process.argv[2];
 if (!fixturePath) {

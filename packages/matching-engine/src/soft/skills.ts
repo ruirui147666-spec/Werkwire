@@ -1,5 +1,5 @@
 import type { AdjacencyMap, RequiredSkill, WorkerSkill } from "@werkwire/shared";
-import { clamp } from "./salary.js";
+import { clamp } from "./salary";
 
 const WEIGHT_VALUE: Record<RequiredSkill["weight"], number> = {
   essential: 3,

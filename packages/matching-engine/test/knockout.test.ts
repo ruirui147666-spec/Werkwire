@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { emptyWeeklySchedule, type Job, type WorkerProfile } from "@werkwire/shared";
-import { evaluateKnockouts } from "../src/knockout.js";
+import { evaluateKnockouts } from "../src/knockout";
 
 function makeWorker(overrides: Partial<WorkerProfile> = {}): WorkerProfile {
   return {

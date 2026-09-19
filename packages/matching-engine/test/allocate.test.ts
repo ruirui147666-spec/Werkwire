@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allocate, type ScoredPair } from "../src/allocate.js";
+import { allocate, type ScoredPair } from "../src/allocate";
 
 function pair(workerId: string, jobId: string, priority: number): ScoredPair {
   return { workerId, jobId, priority };

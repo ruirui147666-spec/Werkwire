@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { scoreLanguages } from "../src/soft/languages.js";
-import { scoreSector } from "../src/soft/sector.js";
-import { scoreContract } from "../src/soft/contract.js";
-import { scoreWorkMode } from "../src/soft/workMode.js";
-import { scoreEmployerReputation } from "../src/soft/employerReputation.js";
+import { scoreLanguages } from "../src/soft/languages";
+import { scoreSector } from "../src/soft/sector";
+import { scoreContract } from "../src/soft/contract";
+import { scoreWorkMode } from "../src/soft/workMode";
+import { scoreEmployerReputation } from "../src/soft/employerReputation";
 
 describe("scoreLanguages", () => {
   it("returns 1.0 when no language is required", () => {

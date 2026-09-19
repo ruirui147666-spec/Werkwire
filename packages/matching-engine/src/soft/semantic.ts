@@ -1,4 +1,4 @@
-import { clamp } from "./salary.js";
+import { clamp } from "./salary";
 
 /**
  * Normalises cosine similarity. Below 0.5 carries no signal in practice

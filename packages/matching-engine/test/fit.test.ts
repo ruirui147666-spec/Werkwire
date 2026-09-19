@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { emptyWeeklySchedule, type Job, type WorkerProfile } from "@werkwire/shared";
-import { computeFit } from "../src/fit.js";
-import { getWeights } from "../src/weights/index.js";
+import { computeFit } from "../src/fit";
+import { getWeights } from "../src/weights/index";
 
 function makeWorker(overrides: Partial<WorkerProfile> = {}): WorkerProfile {
   return {

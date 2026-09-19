@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allWeightSets, getWeights } from "../src/weights/index.js";
+import { allWeightSets, getWeights } from "../src/weights/index";
 
 describe("weight sets", () => {
   it("sums to 1.0 for every registered segment, both blocks", () => {

@@ -4,10 +4,10 @@ import {
   CONTRACT_TYPES,
   VERIFICATION_LEVELS,
   WORK_MODES,
-} from "./enums.js";
-import { geoPointSchema } from "./geo.js";
-import { weeklyScheduleSchema } from "./schedule.js";
-import { hardNoSchema, workerLanguageSchema, workerSkillSchema } from "./skills.js";
+} from "./enums";
+import { geoPointSchema } from "./geo";
+import { weeklyScheduleSchema } from "./schedule";
+import { hardNoSchema, workerLanguageSchema, workerSkillSchema } from "./skills";
 
 export const workAuthorisationSchema = z.enum([
   "eu",

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { emptyWeeklySchedule, type Job, type WorkerProfile } from "@werkwire/shared";
-import { runMatching } from "../src/index.js";
+import { runMatching } from "../src/index";
 
 function worker(id: string, overrides: Partial<WorkerProfile> = {}): WorkerProfile {
   return {

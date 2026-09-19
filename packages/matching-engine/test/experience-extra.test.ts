@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { scoreExperience } from "../src/soft/experience.js";
+import { scoreExperience } from "../src/soft/experience";
 
 describe("scoreExperience — full curve", () => {
   it("is continuous and monotonic across breakpoints", () => {

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { emptyWeeklySchedule, type Job, type WorkerProfile } from "@werkwire/shared";
-import { scoreCommute } from "../src/soft/commute.js";
-import { scoreSalary } from "../src/soft/salary.js";
-import { scoreSkills } from "../src/soft/skills.js";
-import { evaluateKnockouts } from "../src/knockout.js";
-import { runMatching } from "../src/index.js";
+import { scoreCommute } from "../src/soft/commute";
+import { scoreSalary } from "../src/soft/salary";
+import { scoreSkills } from "../src/soft/skills";
+import { evaluateKnockouts } from "../src/knockout";
+import { runMatching } from "../src/index";
 
 describe("coverage gaps", () => {
   it("scoreCommute guards against a zero max", () => {

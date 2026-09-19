@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeCongestionDivisor, computeFreshness, computePriority } from "../src/priority.js";
+import { computeCongestionDivisor, computeFreshness, computePriority } from "../src/priority";
 
 describe("computePriority", () => {
   it("combines harmonic score with response/accept probabilities, freshness and congestion", () => {

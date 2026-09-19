@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { WEEKDAYS } from "./enums.js";
+import { WEEKDAYS } from "./enums";
 
 export const timeSlotSchema = z.object({
   from: z.string().regex(/^\d{2}:\d{2}$/),

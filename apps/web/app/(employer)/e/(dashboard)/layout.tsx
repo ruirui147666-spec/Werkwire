@@ -1,15 +1,8 @@
 import { redirect } from "next/navigation";
-import { Briefcase, CreditCard, Handshake } from "lucide-react";
 import { NavShell } from "@/components/nav/NavShell";
 import { Brand } from "@/components/nav/Brand";
 import { requireRole } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-
-const NAV_ITEMS = [
-  { href: "/e", label: "Vagas", icon: Briefcase },
-  { href: "/e/matches", label: "Matches", icon: Handshake },
-  { href: "/e/billing", label: "Faturação", icon: CreditCard },
-];
 
 export default async function EmployerDashboardLayout({ children }: { children: React.ReactNode }) {
   const profile = await requireRole("employer");
@@ -24,7 +17,7 @@ export default async function EmployerDashboardLayout({ children }: { children: 
   if (!company) redirect("/e/onboarding");
 
   return (
-    <NavShell items={NAV_ITEMS} brand={<Brand />}>
+    <NavShell role="employer" brand={<Brand />}>
       {children}
     </NavShell>
   );

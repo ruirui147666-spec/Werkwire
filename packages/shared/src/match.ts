@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DECLINE_REASONS, MATCH_STATUS } from "./enums.js";
+import { DECLINE_REASONS, MATCH_STATUS } from "./enums";
 
 export const scoreComponentSchema = z.object({
   raw: z.number(),

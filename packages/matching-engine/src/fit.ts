@@ -1,17 +1,17 @@
 import type { AdjacencyMap, Job, ScoreBreakdown, ScoreComponent, WorkerProfile } from "@werkwire/shared";
-import { evaluateKnockouts, type KnockoutResult } from "./knockout.js";
-import { harmonic } from "./reciprocal.js";
-import { scoreCommute } from "./soft/commute.js";
-import { scoreContract } from "./soft/contract.js";
-import { scoreEmployerReputation } from "./soft/employerReputation.js";
-import { scoreExperience } from "./soft/experience.js";
-import { scoreLanguages } from "./soft/languages.js";
-import { scoreSalary } from "./soft/salary.js";
-import { scoreSchedule } from "./soft/schedule.js";
-import { scoreSemantic } from "./soft/semantic.js";
-import { scoreSkills } from "./soft/skills.js";
-import { scoreWorkMode } from "./soft/workMode.js";
-import type { WeightSet } from "./weights/index.js";
+import { evaluateKnockouts, type KnockoutResult } from "./knockout";
+import { harmonic } from "./reciprocal";
+import { scoreCommute } from "./soft/commute";
+import { scoreContract } from "./soft/contract";
+import { scoreEmployerReputation } from "./soft/employerReputation";
+import { scoreExperience } from "./soft/experience";
+import { scoreLanguages } from "./soft/languages";
+import { scoreSalary } from "./soft/salary";
+import { scoreSchedule } from "./soft/schedule";
+import { scoreSemantic } from "./soft/semantic";
+import { scoreSkills } from "./soft/skills";
+import { scoreWorkMode } from "./soft/workMode";
+import type { WeightSet } from "./weights/index";
 
 export interface ScoringContext {
   commuteMinutes: number;

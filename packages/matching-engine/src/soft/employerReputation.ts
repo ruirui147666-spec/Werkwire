@@ -1,5 +1,5 @@
 import type { CompanyReputation } from "@werkwire/shared";
-import { clamp } from "./salary.js";
+import { clamp } from "./salary";
 
 export function scoreEmployerReputation(c: CompanyReputation): number {
   let score = c.response_rate_48h ?? 0.6; // no history yet -> neutral-positive

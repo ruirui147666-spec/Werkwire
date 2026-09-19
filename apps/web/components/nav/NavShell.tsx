@@ -2,14 +2,32 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Briefcase, CreditCard, Handshake, UserRound } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-export interface NavItem {
+interface NavItem {
   href: string;
   label: string;
   icon: LucideIcon;
 }
+
+// Defined here, inside the Client Component, on purpose: a Lucide icon is
+// a component reference (a function/forwardRef object), and React Server
+// Components can only pass plain serializable data (or already-rendered
+// JSX) across the server->client boundary — not raw component references.
+// Building the list where it's consumed avoids ever crossing that boundary.
+const NAV_ITEMS: Record<"worker" | "employer", NavItem[]> = {
+  worker: [
+    { href: "/w", label: "Matches", icon: Handshake },
+    { href: "/w/perfil", label: "Perfil", icon: UserRound },
+  ],
+  employer: [
+    { href: "/e", label: "Vagas", icon: Briefcase },
+    { href: "/e/matches", label: "Matches", icon: Handshake },
+    { href: "/e/billing", label: "Faturação", icon: CreditCard },
+  ],
+};
 
 /**
  * Bottom tab bar on mobile (thumb reach, one hand), left sidebar on desktop.
@@ -17,15 +35,16 @@ export interface NavItem {
  * so "onde estou" never depends on screen size.
  */
 export function NavShell({
-  items,
+  role,
   brand,
   children,
 }: {
-  items: NavItem[];
+  role: "worker" | "employer";
   brand: React.ReactNode;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const items = NAV_ITEMS[role];
 
   return (
     <div className="min-h-dvh md:flex">

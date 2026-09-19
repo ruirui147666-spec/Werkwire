@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { harmonic, isMatch } from "../src/reciprocal.js";
+import { harmonic, isMatch } from "../src/reciprocal";
 
 describe("harmonic", () => {
   it("kills asymmetric matches", () => {

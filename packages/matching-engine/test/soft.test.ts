@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { scoreSalary } from "../src/soft/salary.js";
-import { scoreExperience } from "../src/soft/experience.js";
-import { scoreCommute } from "../src/soft/commute.js";
-import { scoreSchedule } from "../src/soft/schedule.js";
-import { scoreSkills } from "../src/soft/skills.js";
+import { scoreSalary } from "../src/soft/salary";
+import { scoreExperience } from "../src/soft/experience";
+import { scoreCommute } from "../src/soft/commute";
+import { scoreSchedule } from "../src/soft/schedule";
+import { scoreSkills } from "../src/soft/skills";
 import { emptyWeeklySchedule } from "@werkwire/shared";
 
 describe("scoreSalary", () => {

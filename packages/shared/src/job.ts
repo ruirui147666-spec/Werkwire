@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { CONTRACT_TYPES, JOB_STATUS, WORK_MODES } from "./enums.js";
-import { geoPointSchema } from "./geo.js";
-import { weeklyScheduleSchema } from "./schedule.js";
-import { requiredLanguageSchema, requiredSkillSchema } from "./skills.js";
+import { CONTRACT_TYPES, JOB_STATUS, WORK_MODES } from "./enums";
+import { geoPointSchema } from "./geo";
+import { weeklyScheduleSchema } from "./schedule";
+import { requiredLanguageSchema, requiredSkillSchema } from "./skills";
 
 export const companyReputationSchema = z.object({
   response_rate_48h: z.number().min(0).max(1).nullable().optional(),
